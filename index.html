@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oficina de Reescrita — Redação ENEM | Aprimora Editorial</title>
+<meta name="description" content="Não corrige sua redação: devolve comandos de reescrita. Três rodadas, gratuito, sem cadastro.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --tinta:#14171c;
+  --papel:#faf8f4;
+  --pauta:#e2ddd2;
+  --marca:#1d4e4a;
+  --marca-clara:#e8f0ee;
+  --grifo:#e8703a;
+  --grifo-fraco:#fbe9e0;
+  --cinza:#6b6f76;
+  --cinza-claro:#9aa0a8;
+
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --corpo:"Newsreader",Georgia,serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--papel);
+  color:var(--tinta);
+  font-family:var(--corpo);
+  font-size:1.05rem;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+.wrap{max-width:820px;margin:0 auto;padding:0 1.5rem}
+
+/* ---------- CABEÇALHO ---------- */
+
+header{
+  border-bottom:1px solid var(--pauta);
+  padding:1.1rem 0;
+  position:sticky;top:0;
+  background:rgba(250,248,244,.93);
+  backdrop-filter:blur(10px);
+  z-index:50;
+}
+.topo{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.marca{
+  font-family:var(--display);
+  font-weight:800;
+  font-size:.82rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--marca);
+  text-decoration:none;
+}
+.contador{
+  font-family:var(--mono);
+  font-size:.7rem;
+  color:var(--cinza-claro);
+  letter-spacing:.06em;
+}
+
+/* ---------- ABERTURA ---------- */
+
+.hero{padding:4.5rem 0 3rem}
+
+.tese{
+  font-family:var(--display);
+  font-weight:800;
+  font-size:clamp(2.1rem,6.5vw,3.7rem);
+  line-height:1.02;
+  letter-spacing:-.035em;
+  margin-bottom:1.6rem;
+}
+.tese .riscado{
+  position:relative;
+  color:var(--cinza-claro);
+  white-space:nowrap;
+}
+.tese .riscado::after{
+  content:"";position:absolute;left:-.02em;right:-.02em;top:52%;
+  height:.075em;background:var(--grifo);
+  transform:scaleX(0);transform-origin:left;
+  animation:risca .55s .5s cubic-bezier(.65,0,.35,1) forwards;
+}
+@keyframes risca{to{transform:scaleX(1)}}
+.tese .troca{
+  color:var(--marca);
+  opacity:0;
+  animation:surge .5s 1.05s ease forwards;
+}
+@keyframes surge{from{opacity:0;transform:translateY(.12em)}to{opacity:1;transform:none}}
+
+.subtese{
+  font-size:1.16rem;
+  color:var(--cinza);
+  max-width:56ch;
+  margin-bottom:2.4rem;
+}
+.subtese strong{color:var(--tinta);font-weight:500}
+
+.regras{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:0;
+  border-top:1px solid var(--pauta);
+  border-bottom:1px solid var(--pauta);
+}
+.regra{padding:1.3rem 1.4rem 1.3rem 0}
+.regra + .regra{border-left:1px solid var(--pauta);padding-left:1.4rem}
+.regra dt{
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--grifo);
+  margin-bottom:.45rem;
+}
+.regra dd{font-size:.96rem;line-height:1.45;color:var(--cinza)}
+
+@media(max-width:640px){
+  .regra + .regra{border-left:0;border-top:1px solid var(--pauta);padding-left:0}
+}
+
+/* ---------- TRILHA ---------- */
+
+.trilha{
+  display:flex;align-items:center;gap:.55rem;
+  padding:1.6rem 0;
+  font-family:var(--mono);
+  font-size:.68rem;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:var(--cinza-claro);
+  flex-wrap:wrap;
+}
+.passo{display:flex;align-items:center;gap:.4rem}
+.bolinha{
+  width:.55rem;height:.55rem;border-radius:50%;
+  border:1.5px solid var(--pauta);
+  flex-shrink:0;
+}
+.passo.feito .bolinha{background:var(--marca);border-color:var(--marca)}
+.passo.feito{color:var(--marca)}
+.passo.agora .bolinha{border-color:var(--grifo);background:var(--grifo)}
+.passo.agora{color:var(--grifo)}
+.tracinho{width:1.4rem;height:1px;background:var(--pauta)}
+
+/* ---------- FORMULÁRIO ---------- */
+
+section{padding-bottom:3.5rem}
+
+label{
+  display:block;
+  font-family:var(--mono);
+  font-size:.68rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--cinza);
+  margin-bottom:.5rem;
+}
+
+input[type=text],textarea{
+  width:100%;
+  font-family:var(--corpo);
+  font-size:1.02rem;
+  line-height:1.65;
+  color:var(--tinta);
+  background:#fff;
+  border:1px solid var(--pauta);
+  border-radius:2px;
+  padding:.85rem 1rem;
+  transition:border-color .15s;
+}
+input[type=text]:focus,textarea:focus{
+  outline:none;
+  border-color:var(--marca);
+  box-shadow:0 0 0 3px var(--marca-clara);
+}
+textarea{
+  min-height:19rem;
+  resize:vertical;
+  background-image:repeating-linear-gradient(transparent,transparent 1.673rem,var(--pauta) 1.673rem,var(--pauta) calc(1.673rem + 1px));
+  background-attachment:local;
+}
+.campo{margin-bottom:1.5rem}
+
+.rodape-campo{
+  display:flex;justify-content:space-between;align-items:baseline;
+  margin-top:.45rem;
+  font-family:var(--mono);
+  font-size:.68rem;
+  color:var(--cinza-claro);
+}
+.rodape-campo .alerta{color:var(--grifo)}
+
+button{
+  font-family:var(--display);
+  font-weight:600;
+  font-size:.95rem;
+  letter-spacing:.01em;
+  color:#fff;
+  background:var(--marca);
+  border:none;
+  border-radius:2px;
+  padding:.9rem 1.9rem;
+  cursor:pointer;
+  transition:background .15s,transform .06s;
+}
+button:hover:not(:disabled){background:#164240}
+button:active:not(:disabled){transform:translateY(1px)}
+button:disabled{background:var(--cinza-claro);cursor:not-allowed}
+button:focus-visible{outline:2px solid var(--grifo);outline-offset:3px}
+
+.secundario{
+  background:none;color:var(--marca);
+  border:1px solid var(--pauta);
+  padding:.75rem 1.4rem;font-size:.88rem;
+}
+.secundario:hover:not(:disabled){background:var(--marca-clara)}
+
+/* ---------- RESULTADO ---------- */
+
+.oculto{display:none}
+
+.carregando{
+  padding:3.5rem 0;text-align:center;
+  font-family:var(--mono);font-size:.75rem;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--cinza);
+}
+.pontinhos::after{
+  content:"";animation:pontos 1.4s steps(4,end) infinite;
+}
+@keyframes pontos{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
+
+h2{
+  font-family:var(--display);
+  font-weight:800;
+  font-size:1.75rem;
+  letter-spacing:-.022em;
+  margin-bottom:.4rem;
+}
+.legenda{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--cinza-claro);margin-bottom:1.6rem;
+}
+
+.faixa-global{
+  border:1px solid var(--pauta);
+  border-left:3px solid var(--marca);
+  padding:1.2rem 1.4rem;
+  margin-bottom:2rem;
+  background:#fff;
+}
+.faixa-global .rotulo{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--cinza);
+}
+.faixa-global .valor{
+  font-family:var(--display);font-weight:800;
+  font-size:2.3rem;letter-spacing:-.03em;color:var(--marca);
+  line-height:1.15;
+}
+.faixa-global .obs{font-size:.92rem;color:var(--cinza);margin-top:.3rem}
+
+.comp{
+  border-top:1px solid var(--pauta);
+  padding:1.25rem 0;
+}
+.comp-topo{
+  display:flex;justify-content:space-between;align-items:baseline;
+  gap:1rem;margin-bottom:.55rem;
+}
+.comp-nome{font-family:var(--display);font-weight:600;font-size:1.02rem}
+.comp-nome .cod{color:var(--grifo);font-family:var(--mono);font-size:.78rem;margin-right:.45rem}
+.comp-faixa{
+  font-family:var(--mono);font-size:.82rem;font-weight:600;
+  color:var(--marca);white-space:nowrap;
+}
+.barra{
+  height:3px;background:var(--pauta);margin-bottom:.7rem;position:relative;
+}
+.barra i{
+  position:absolute;left:0;top:0;height:100%;background:var(--marca);
+  width:0;transition:width .7s cubic-bezier(.2,.7,.3,1);
+}
+.comp p{font-size:.98rem;color:#3a3f47}
+.evid{
+  font-family:var(--corpo);font-style:italic;
+  border-left:2px solid var(--grifo);
+  padding-left:.8rem;margin-top:.6rem;
+  color:var(--cinza);font-size:.94rem;
+}
+
+.comando{
+  background:var(--grifo-fraco);
+  border:1px solid #f2cdb8;
+  border-radius:2px;
+  padding:1.4rem 1.5rem;
+  margin:2.2rem 0 1.4rem;
+}
+.comando .rotulo{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--grifo);margin-bottom:.6rem;
+}
+.comando .alvo{
+  font-family:var(--display);font-weight:600;font-size:1.05rem;margin-bottom:.5rem;
+}
+.comando p{font-size:1rem;line-height:1.55}
+
+.delta{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-family:var(--mono);font-size:.75rem;font-weight:600;
+  padding:.28rem .6rem;border-radius:2px;margin-bottom:1rem;
+}
+.delta.subiu{background:var(--marca-clara);color:var(--marca)}
+.delta.mantev{background:#f0eee9;color:var(--cinza)}
+.delta.caiu{background:var(--grifo-fraco);color:#b8481c}
+
+.bloco{margin-bottom:1.2rem}
+.bloco h3{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--cinza);
+  font-weight:400;margin-bottom:.35rem;
+}
+.bloco p{font-size:.99rem}
+
+/* ---------- HISTÓRICO ---------- */
+
+.historico{
+  border-top:1px solid var(--pauta);
+  margin-top:3rem;padding-top:1.8rem;
+}
+.historico h2{font-size:1.3rem;margin-bottom:1.2rem}
+.sessao{
+  border:1px solid var(--pauta);background:#fff;
+  padding:.9rem 1.1rem;margin-bottom:.6rem;
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  flex-wrap:wrap;
+}
+.sessao .quando{
+  font-family:var(--mono);font-size:.68rem;color:var(--cinza-claro);
+  letter-spacing:.06em;
+}
+.sessao .tema-hist{font-size:.96rem;font-weight:500;flex:1;min-width:12rem}
+.sessao .faixa-hist{font-family:var(--mono);font-size:.8rem;color:var(--marca);font-weight:600}
+
+.padrao{
+  background:var(--marca-clara);
+  border-left:3px solid var(--marca);
+  padding:1.1rem 1.3rem;margin-bottom:1.2rem;
+}
+.padrao .rotulo{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--marca);margin-bottom:.5rem;
+}
+.padrao p{font-size:.98rem}
+.padrao ul{margin:.5rem 0 0 1.1rem;font-size:.96rem}
+.padrao li{margin-bottom:.25rem}
+
+.erro{
+  border:1px solid #f2cdb8;background:var(--grifo-fraco);
+  padding:1rem 1.2rem;margin-bottom:1.2rem;font-size:.98rem;
+}
+
+/* ---------- RODAPÉ ---------- */
+
+footer{
+  border-top:1px solid var(--pauta);
+  padding:2.5rem 0 3.5rem;margin-top:4rem;
+  font-size:.9rem;color:var(--cinza);
+}
+footer a{color:var(--marca);text-decoration:none;border-bottom:1px solid var(--pauta)}
+footer a:hover{border-color:var(--marca)}
+footer .assinatura{
+  font-family:var(--display);font-weight:800;font-size:.8rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--marca);
+  margin-bottom:.5rem;display:block;
+}
+footer .miudo{font-size:.8rem;color:var(--cinza-claro);margin-top:1rem;line-height:1.5}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .tese .riscado::after{transform:scaleX(1)}
+  .tese .troca{opacity:1}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap topo">
+    <a class="marca" href="#">Aprimora Editorial</a>
+    <span class="contador" id="contador"></span>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ABERTURA -->
+  <div class="hero" id="hero">
+    <h1 class="tese">
+      Não <span class="riscado">corrige</span><br>
+      sua redação.<br>
+      <span class="troca">Manda reescrever.</span>
+    </h1>
+    <p class="subtese">
+      Você escreve. A ferramenta aponta a competência mais fraca e devolve um
+      <strong>comando de reescrita</strong> — o que mudar, onde, e o que precisa acontecer
+      para a nota subir. Você reescreve. Ela mede o que mudou. Três rodadas.
+    </p>
+
+    <dl class="regras">
+      <div class="regra">
+        <dt>Faixa, não nota</dt>
+        <dd>Corretor nenhum acerta ponto a ponto. Aqui você recebe intervalo por competência — é o que dá para afirmar com honestidade.</dd>
+      </div>
+      <div class="regra">
+        <dt>Comando, não texto pronto</dt>
+        <dd>Nenhum parágrafo é reescrito para você. A operação é sua; a ferramenta só diz qual é.</dd>
+      </div>
+      <div class="regra">
+        <dt>Sem cadastro</dt>
+        <dd>Nada de e-mail, nada de senha. Seu histórico fica salvo só neste navegador.</dd>
+      </div>
+    </dl>
+  </div>
+
+  <!-- TRILHA -->
+  <div class="trilha" id="trilha" aria-live="polite"></div>
+
+  <!-- ERRO -->
+  <div class="erro oculto" id="erro" role="alert"></div>
+
+  <!-- ETAPA: ESCRITA -->
+  <section id="etapaEscrita">
+    <div class="campo">
+      <label for="tema">Tema da proposta</label>
+      <input type="text" id="tema" placeholder="Ex.: Desafios para a valorização do trabalho de cuidado no Brasil" maxlength="200">
+    </div>
+
+    <div class="campo">
+      <label for="texto" id="labelTexto">Sua redação</label>
+      <textarea id="texto" placeholder="Cole ou digite aqui." spellcheck="true"></textarea>
+      <div class="rodape-campo">
+        <span id="contaChar">0 caracteres</span>
+        <span id="dicaChar">Uma redação ENEM tem cerca de 1.800</span>
+      </div>
+    </div>
+
+    <button id="btnEnviar">Receber diagnóstico</button>
+  </section>
+
+  <!-- CARREGANDO -->
+  <div class="carregando oculto" id="carregando">
+    <span id="txtCarregando">Lendo sua redação</span><span class="pontinhos"></span>
+  </div>
+
+  <!-- RESULTADO -->
+  <section class="oculto" id="resultado"></section>
+
+  <!-- HISTÓRICO -->
+  <section class="historico oculto" id="historico"></section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="assinatura">Aprimora Editorial</span>
+    <p>
+      Produção editorial e consultoria estratégica em materiais didáticos, com metodologia
+      de trabalho integrada à IA. <a href="https://www.linkedin.com/company/aprimora-editorial" target="_blank" rel="noopener">Conheça o trabalho</a>.
+    </p>
+    <p class="miudo">
+      Ferramenta gratuita, de uso livre para estudantes. A faixa estimada é referência de estudo,
+      não previsão de nota oficial. Sua redação não é armazenada em servidor: o histórico fica
+      apenas na memória deste navegador e some se você limpar os dados.
+    </p>
+  </div>
+</footer>
+
+<script>
+// ============================================================
+// CONFIGURAÇÃO — troque pelo endereço do seu Worker
+// ============================================================
+const ENDPOINT = "https://oficina-redacao.renato-tresolavy.workers.dev";
+const MAX_CHAR = 4000;
+const TOTAL_RODADAS = 3;
+
+// ============================================================
+
+const $ = (id) => document.getElementById(id);
+
+const estado = {
+  rodada: 0,          // 0 = ainda não enviou; 1 = diagnóstico; 2 e 3 = reescritas
+  tema: "",
+  competenciaFoco: null,
+  diagnosticoFoco: "",
+  faixaInicial: null,
+  faixaCorrente: null,
+  sessaoId: null,
+};
+
+// ---------- HISTÓRICO (localStorage) ----------
+
+const CHAVE = "aprimora_oficina_v1";
+
+function lerHistorico(){
+  try{ return JSON.parse(localStorage.getItem(CHAVE)) || []; }
+  catch{ return []; }
+}
+function salvarSessao(sessao){
+  const h = lerHistorico();
+  const i = h.findIndex(s => s.id === sessao.id);
+  if(i >= 0) h[i] = sessao; else h.unshift(sessao);
+  try{ localStorage.setItem(CHAVE, JSON.stringify(h.slice(0,20))); }catch{}
+}
+
+// ---------- TRILHA ----------
+
+function pintarTrilha(){
+  const nomes = ["Diagnóstico","1ª reescrita","2ª reescrita"];
+  const html = nomes.map((n,i)=>{
+    const num = i+1;
+    let cls = "passo";
+    if(estado.rodada > num) cls += " feito";
+    else if(estado.rodada === num) cls += " agora";
+    return `<span class="${cls}"><span class="bolinha"></span>${n}</span>`;
+  }).join('<span class="tracinho"></span>');
+  $("trilha").innerHTML = html;
+}
+
+// ---------- CONTADOR DE CARACTERES ----------
+
+$("texto").addEventListener("input", () => {
+  const n = $("texto").value.length;
+  $("contaChar").textContent = n.toLocaleString("pt-BR") + " caracteres";
+  $("contaChar").className = n > MAX_CHAR ? "alerta" : "";
+});
+
+// ---------- CHAMADA ----------
+
+async function chamar(payload){
+  const r = await fetch(ENDPOINT, {
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body: JSON.stringify(payload)
+  });
+  const dados = await r.json().catch(()=>({erro:"Resposta ilegível do servidor."}));
+  if(!r.ok) throw new Error(dados.erro || "Algo deu errado. Tente de novo.");
+  if(typeof dados.usosRestantes === "number"){
+    $("contador").textContent = dados.usosRestantes + " envios restantes hoje";
+  }
+  return dados.conteudo;
+}
+
+function mostrarErro(msg){
+  $("erro").textContent = msg;
+  $("erro").classList.remove("oculto");
+  $("erro").scrollIntoView({behavior:"smooth",block:"center"});
+}
+function limparErro(){ $("erro").classList.add("oculto"); }
+
+function carregando(ativo, texto){
+  $("carregando").classList.toggle("oculto", !ativo);
+  if(texto) $("txtCarregando").textContent = texto;
+  $("btnEnviar").disabled = ativo;
+}
+
+// ---------- FLUXO PRINCIPAL ----------
+
+$("btnEnviar").addEventListener("click", enviar);
+
+async function enviar(){
+  limparErro();
+  const texto = $("texto").value.trim();
+  const tema = $("tema").value.trim();
+
+  if(texto.length < 200){
+    mostrarErro("O texto está muito curto para diagnóstico. Escreva pelo menos alguns parágrafos.");
+    return;
+  }
+  if(texto.length > MAX_CHAR){
+    mostrarErro(`O texto passa de ${MAX_CHAR.toLocaleString("pt-BR")} caracteres. Reduza antes de enviar.`);
+    return;
+  }
+
+  const primeira = estado.rodada === 0;
+
+  if(primeira){
+    estado.tema = tema;
+    estado.sessaoId = Date.now();
+  }
+
+  estado.rodada += 1;
+  pintarTrilha();
+  $("etapaEscrita").classList.add("oculto");
+  carregando(true, primeira ? "Lendo sua redação" : "Comparando com a versão anterior");
+
+  try{
+    const payload = primeira
+      ? { etapa:"diagnostico", tema: estado.tema, texto }
+      : { etapa:"reescrita", tema: estado.tema, texto,
+          competenciaFoco: estado.competenciaFoco,
+          diagnosticoAnterior: estado.diagnosticoFoco };
+
+    const c = await chamar(payload);
+    carregando(false);
+
+    if(primeira) renderDiagnostico(c);
+    else renderReescrita(c);
+
+  }catch(e){
+    carregando(false);
+    estado.rodada -= 1;
+    pintarTrilha();
+    $("etapaEscrita").classList.remove("oculto");
+    mostrarErro(e.message);
+  }
+}
+
+// ---------- RENDERIZAÇÃO: DIAGNÓSTICO ----------
+
+const FAIXA_MAX = {"0-40":40,"40-80":80,"80-120":120,"120-160":160,"160-200":200};
+
+function larguraBarra(faixa){
+  const v = FAIXA_MAX[faixa];
+  return v ? (v/200*100) : 50;
+}
+
+function esc(s){
+  return String(s ?? "").replace(/[&<>"]/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+}
+
+function renderDiagnostico(c){
+  estado.competenciaFoco = c.competenciaFoco;
+  estado.faixaInicial = c.faixaGlobal;
+  estado.faixaCorrente = c.faixaGlobal;
+
+  const focoObj = (c.competencias||[]).find(x => x.codigo === c.competenciaFoco);
+  estado.diagnosticoFoco = focoObj ? focoObj.diagnostico : "";
+
+  const comps = (c.competencias||[]).map(k => `
+    <div class="comp">
+      <div class="comp-topo">
+        <span class="comp-nome"><span class="cod">${esc(k.codigo)}</span>${esc(k.nome)}</span>
+        <span class="comp-faixa">${esc(k.faixa)}</span>
+      </div>
+      <div class="barra"><i data-w="${larguraBarra(k.faixa)}"></i></div>
+      <p>${esc(k.diagnostico)}</p>
+      ${k.evidencia ? `<p class="evid">“${esc(k.evidencia)}”</p>` : ""}
+    </div>`).join("");
+
+  $("resultado").innerHTML = `
+    <h2>Diagnóstico</h2>
+    <p class="legenda">Rodada 1 de ${TOTAL_RODADAS} · ${esc(c.temaDetectado || estado.tema || "tema livre")}</p>
+
+    <div class="faixa-global">
+      <div class="rotulo">Faixa estimada</div>
+      <div class="valor">${esc(c.faixaGlobal)}</div>
+      <p class="obs">Intervalo, não nota. A correção oficial tem quatro avaliadores humanos e critérios próprios.</p>
+    </div>
+
+    ${comps}
+
+    <div class="bloco" style="margin-top:2rem">
+      <h3>O que já está sustentado</h3>
+      <p>${esc(c.pontoForte)}</p>
+    </div>
+
+    <div class="comando">
+      <div class="rotulo">Comando de reescrita · rodada 2</div>
+      <div class="alvo">Trabalhe a ${esc(c.competenciaFoco)}</div>
+      <p style="margin-bottom:.8rem;color:var(--cinza);font-size:.94rem">${esc(c.razaoDoFoco)}</p>
+      <p>${esc(c.comandoReescrita)}</p>
+    </div>
+
+    <button id="btnProxima">Reescrever e reenviar</button>
+  `;
+
+  finalizarRender(c.faixaGlobal, "Diagnóstico");
+}
+
+// ---------- RENDERIZAÇÃO: REESCRITA ----------
+
+function renderReescrita(c){
+  const ultima = estado.rodada >= TOTAL_RODADAS;
+  const mov = (c.movimento||"manteve").toLowerCase();
+  const clsMov = mov.startsWith("sub") ? "subiu" : mov.startsWith("cai") ? "caiu" : "mantev";
+  const setaMov = mov.startsWith("sub") ? "↑" : mov.startsWith("cai") ? "↓" : "→";
+
+  estado.competenciaFoco = c.proximaCompetencia;
+  estado.diagnosticoFoco = c.oQueAindaFalta || "";
+  estado.faixaCorrente = c.faixaAtual;
+
+  $("resultado").innerHTML = `
+    <h2>O que mudou</h2>
+    <p class="legenda">Rodada ${estado.rodada} de ${TOTAL_RODADAS} · foco em ${esc(c.competenciaFoco)}</p>
+
+    <div class="delta ${clsMov}">${setaMov} ${esc(c.faixaAnterior)} → ${esc(c.faixaAtual)}</div>
+
+    <div class="bloco">
+      <h3>O que você alterou</h3>
+      <p>${esc(c.oQueMudou)}</p>
+    </div>
+
+    <div class="bloco">
+      <h3>O que ainda falta</h3>
+      <p>${esc(c.oQueAindaFalta)}</p>
+    </div>
+
+    <div class="bloco">
+      <h3>Efeito sobre as outras competências</h3>
+      <p>${esc(c.efeitoColateral)}</p>
+    </div>
+
+    ${ultima ? `
+      <div class="comando">
+        <div class="rotulo">Fim da sessão</div>
+        <div class="alvo">Próximo passo: ${esc(c.proximaCompetencia)}</div>
+        <p>${esc(c.comandoReescrita)}</p>
+        <p style="margin-top:.9rem;color:var(--cinza);font-size:.94rem">
+          Três rodadas é o limite de uma sessão. Reescreva por conta própria com esse comando
+          e volte com uma redação nova quando quiser — seu histórico continua aqui.
+        </p>
+      </div>
+      <button id="btnNova" class="secundario">Começar redação nova</button>
+    ` : `
+      <div class="comando">
+        <div class="rotulo">Comando de reescrita · rodada ${estado.rodada + 1}</div>
+        <div class="alvo">Agora trabalhe a ${esc(c.proximaCompetencia)}</div>
+        <p>${esc(c.comandoReescrita)}</p>
+      </div>
+      <button id="btnProxima">Reescrever e reenviar</button>
+    `}
+  `;
+
+  finalizarRender(c.faixaAtual, "Rodada " + estado.rodada);
+}
+
+// ---------- PÓS-RENDER ----------
+
+function finalizarRender(faixa, etiqueta){
+  $("resultado").classList.remove("oculto");
+  pintarTrilha();
+
+  requestAnimationFrame(()=>{
+    document.querySelectorAll(".barra i").forEach(b=>{
+      b.style.width = b.dataset.w + "%";
+    });
+  });
+
+  const btnP = $("btnProxima");
+  if(btnP) btnP.addEventListener("click", voltarParaEscrita);
+  const btnN = $("btnNova");
+  if(btnN) btnN.addEventListener("click", ()=>location.reload());
+
+  salvarSessao({
+    id: estado.sessaoId,
+    data: new Date().toISOString(),
+    tema: estado.tema || "Tema não informado",
+    faixaInicial: estado.faixaInicial,
+    faixaFinal: faixa,
+    rodadas: estado.rodada,
+    focos: estado.competenciaFoco,
+  });
+
+  renderHistorico();
+  $("resultado").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function voltarParaEscrita(){
+  $("resultado").classList.add("oculto");
+  $("etapaEscrita").classList.remove("oculto");
+  $("labelTexto").textContent = "Sua redação reescrita";
+  $("btnEnviar").textContent = "Enviar reescrita";
+  $("tema").parentElement.classList.add("oculto");
+  $("texto").focus();
+  $("etapaEscrita").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+// ---------- HISTÓRICO ----------
+
+function renderHistorico(){
+  const h = lerHistorico();
+  if(h.length < 1){ $("historico").classList.add("oculto"); return; }
+
+  const linhas = h.map(s=>`
+    <div class="sessao">
+      <span class="quando">${new Date(s.data).toLocaleDateString("pt-BR",{day:"2-digit",month:"short"})}</span>
+      <span class="tema-hist">${esc(s.tema)}</span>
+      <span class="faixa-hist">${esc(s.faixaInicial)} → ${esc(s.faixaFinal)}</span>
+    </div>`).join("");
+
+  const contagem = {};
+  h.forEach(s => { if(s.focos) contagem[s.focos] = (contagem[s.focos]||0)+1; });
+  const recorrentes = Object.entries(contagem).sort((a,b)=>b[1]-a[1]).filter(([,n])=>n>1);
+
+  const padrao = h.length >= 3 && recorrentes.length ? `
+    <div class="padrao">
+      <div class="rotulo">Padrão nas suas últimas ${h.length} redações</div>
+      <p>A competência que mais aparece como foco:</p>
+      <ul>${recorrentes.map(([c,n])=>`<li><strong>${esc(c)}</strong> — ${n} vezes</li>`).join("")}</ul>
+      <p style="margin-top:.6rem">Erro que se repete não é distração: é lacuna de método. Vale estudar essa competência fora da prática de redação.</p>
+    </div>` : "";
+
+  $("historico").innerHTML = `<h2>Seu histórico</h2>${padrao}${linhas}`;
+  $("historico").classList.remove("oculto");
+}
+
+// ---------- INÍCIO ----------
+
+pintarTrilha();
+renderHistorico();
+</script>
+</body>
+</html>
