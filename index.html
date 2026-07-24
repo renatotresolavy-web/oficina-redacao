@@ -131,18 +131,27 @@ header{
 
 .regras{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  grid-template-columns:repeat(3,1fr);
   gap:0;
   border-top:1px solid var(--pauta);
   border-bottom:1px solid var(--pauta);
 }
 .regra{padding:1.3rem 1.4rem;border-left:1px solid var(--pauta)}
-.regra:first-child{border-left:0;padding-left:0}
+.regra:nth-child(3n+1){border-left:0;padding-left:0}
+.regra:nth-child(n+4){border-top:1px solid var(--pauta)}
 
-@media(min-width:641px) and (max-width:1000px){
+@media(min-width:641px) and (max-width:900px){
   .regras{grid-template-columns:1fr 1fr}
+  .regra{border-left:1px solid var(--pauta);border-top:0;padding-left:1.4rem}
+  .regra:nth-child(3n+1){border-left:1px solid var(--pauta);padding-left:1.4rem}
   .regra:nth-child(odd){border-left:0;padding-left:0}
   .regra:nth-child(n+3){border-top:1px solid var(--pauta)}
+}
+
+@media(max-width:640px){
+  .regras{grid-template-columns:1fr}
+  .regra{border-left:0;padding-left:0;padding-right:0;border-top:0}
+  .regra + .regra{border-top:1px solid var(--pauta)}
 }
 .regra dt{
   font-family:var(--mono);
@@ -153,11 +162,6 @@ header{
   margin-bottom:.45rem;
 }
 .regra dd{font-size:1.12rem;line-height:1.5;color:var(--cinza)}
-
-@media(max-width:640px){
-  .regra{border-left:0;padding-left:0;padding-right:0}
-  .regra + .regra{border-top:1px solid var(--pauta)}
-}
 
 /* ---------- TRILHA ---------- */
 
@@ -230,6 +234,57 @@ textarea{
   color:var(--cinza);
 }
 .rodape-campo .alerta{color:var(--grifo)}
+
+/* seletor de temas anteriores */
+.temas-anteriores{
+  display:flex;align-items:center;gap:.7rem;
+  margin-top:.7rem;flex-wrap:wrap;
+}
+.rotulo-temas{
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--cinza);
+}
+select{
+  font-family:var(--corpo);font-size:1rem;
+  color:var(--tinta);background:var(--papel-alto);
+  border:1.5px solid var(--pauta);border-radius:2px;
+  padding:.5rem .7rem;max-width:100%;
+  cursor:pointer;
+}
+select:focus{
+  outline:none;border-color:var(--roxo);
+  box-shadow:0 0 0 3px var(--grifo-fraco);
+}
+
+/* painel do recorte da banca */
+.recorte{
+  border:1.5px solid var(--pauta);
+  border-left:4px solid var(--petroleo);
+  background:var(--papel-alto);
+  padding:1.2rem 1.4rem;
+  margin-top:1rem;
+}
+.recorte .rotulo{
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--petroleo);margin-bottom:.8rem;
+}
+.elementos{
+  list-style:none;display:flex;flex-wrap:wrap;gap:.45rem;
+  margin-bottom:.9rem;
+}
+.elementos li{
+  font-family:var(--mono);font-size:.85rem;
+  background:var(--marca-clara);color:var(--petroleo);
+  padding:.32rem .7rem;border-radius:2px;
+}
+.nota-recorte{font-size:1.06rem;line-height:1.5;color:var(--cinza)}
+.nota-recorte em{color:var(--tinta);font-style:italic}
+.nota-recorte.aviso{
+  margin-top:.7rem;padding-top:.7rem;
+  border-top:1px solid var(--pauta);
+  font-family:var(--mono);font-size:.85rem;line-height:1.45;
+  color:var(--roxo);
+}
 
 /* campo opcional colapsável */
 .dobra{
@@ -436,6 +491,24 @@ h2{
   padding:1.1rem 1.3rem;margin-bottom:1.2rem;font-size:1.12rem;
 }
 
+.risco{
+  border:1.5px solid #cbb6c8;
+  background:var(--grifo-fraco);
+  border-left:4px solid var(--roxo);
+  padding:1.2rem 1.4rem;margin-bottom:1.8rem;
+}
+.risco.grave{
+  border-color:#d9a99e;
+  background:#f5e4de;
+  border-left-color:#a8401c;
+}
+.risco .rotulo{
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--roxo);margin-bottom:.5rem;
+}
+.risco.grave .rotulo{color:#a8401c}
+.risco p{font-size:1.12rem;line-height:1.55}
+
 /* ---------- RODAPÉ ---------- */
 
 footer{
@@ -496,6 +569,10 @@ footer .miudo{font-size:.95rem;color:var(--cinza);margin-top:1rem;line-height:1.
         <dd>Corretor nenhum acerta ponto a ponto. Aqui você recebe intervalo por competência — é o que dá para afirmar com honestidade.</dd>
       </div>
       <div class="regra">
+        <dt>Matriz oficial</dt>
+        <dd>As faixas seguem os descritores do INEP, da Cartilha do Participante — não uma aproximação improvisada.</dd>
+      </div>
+      <div class="regra">
         <dt>Comando, não texto pronto</dt>
         <dd>Nenhum parágrafo é reescrito para você. A operação é sua; a ferramenta só diz qual é.</dd>
       </div>
@@ -520,7 +597,14 @@ footer .miudo{font-size:.95rem;color:var(--cinza);margin-top:1rem;line-height:1.
   <section id="etapaEscrita">
     <div class="campo">
       <label for="tema">Tema da proposta</label>
-      <input type="text" id="tema" placeholder="Ex.: Desafios para a valorização do trabalho de cuidado no Brasil" maxlength="200">
+      <input type="text" id="tema" placeholder="Escreva o tema ou escolha um dos anteriores abaixo" maxlength="200">
+      <div class="temas-anteriores">
+        <span class="rotulo-temas">Ou treine com um tema já cobrado</span>
+        <select id="seletorTema" aria-label="Escolher um tema de edição anterior do ENEM">
+          <option value="">Escolher…</option>
+        </select>
+      </div>
+      <div class="recorte oculto" id="recorte"></div>
     </div>
 
     <details class="dobra" id="dobraMotivadores">
@@ -577,9 +661,11 @@ footer .miudo{font-size:.95rem;color:var(--cinza);margin-top:1rem;line-height:1.
       <a href="https://www.linkedin.com/company/aprimora-editorial" target="_blank" rel="noopener">Conheça o trabalho</a>.
     </p>
     <p class="miudo">
-      Ferramenta gratuita, de uso livre para estudantes. A faixa estimada é referência de estudo,
-      não previsão de nota oficial. Sua redação não é armazenada em servidor: o histórico fica
-      apenas na memória deste navegador e some se você limpar os dados.
+      Ferramenta gratuita, de uso livre para estudantes. A avaliação segue a Matriz de Referência
+      publicada pelo INEP na Cartilha do Participante, mas a faixa estimada é referência de estudo,
+      não previsão de nota oficial — a correção do ENEM é feita por avaliadores humanos.
+      Sua redação não é armazenada em servidor: o histórico fica apenas na memória deste navegador
+      e some se você limpar os dados.
     </p>
   </div>
 </footer>
@@ -637,7 +723,110 @@ function pintarTrilha(){
   $("trilha").innerHTML = html;
 }
 
-// ---------- CONTADOR DE CARACTERES ----------
+// ============================================================
+// TEMAS DE EDIÇÕES ANTERIORES
+// Cada tema traz os elementos da frase temática. A banca só
+// considera o tema completo quando TODOS aparecem no texto —
+// cobrir só parte é tangenciamento, que trava C2, C3 e C5 em 40.
+// ============================================================
+
+const TEMAS = [
+  {
+    ano: 2025,
+    titulo: "Perspectivas acerca do envelhecimento na sociedade brasileira",
+    elementos: ["Perspectivas", "Envelhecimento", "Sociedade brasileira"],
+    nota: "Rompeu o padrão: a banca pediu <em>perspectivas</em>, não <em>desafios</em>. Escrever só sobre problemas da velhice ignora metade do recorte — perspectiva inclui o que muda, o que se ganha e o que a sociedade precisa repensar."
+  },
+  {
+    ano: 2024,
+    titulo: "Desafios para a valorização da herança africana no Brasil",
+    elementos: ["Desafios", "Valorização", "Herança africana", "Brasil"],
+    nota: "A cartilha registra três formas de fuga aqui: falar do continente africano sem tratar do Brasil; falar da história brasileira sem mencionar a herança africana; tratar preconceito de forma genérica sem chegar à herança. E <em>herança</em> era cultural, não jurídica — a definição estava no Texto I."
+  },
+  {
+    ano: 2023,
+    titulo: "Desafios para o enfrentamento da invisibilidade do trabalho de cuidado realizado pela mulher no Brasil",
+    elementos: ["Desafios", "Invisibilidade", "Trabalho de cuidado", "Realizado pela mulher", "Brasil"],
+    nota: "O recorte mais estreito da série. Não bastava falar de desigualdade de gênero nem de trabalho doméstico: era preciso chegar ao <em>trabalho de cuidado</em> especificamente — e à sua invisibilidade."
+  },
+  {
+    ano: 2022,
+    titulo: "Desafios para a valorização de comunidades e povos tradicionais no Brasil",
+    elementos: ["Desafios", "Valorização", "Comunidades e povos tradicionais", "Brasil"],
+    nota: "<em>Povos tradicionais</em> é categoria jurídica ampla: indígenas, quilombolas, ribeirinhos, ciganos, pescadores artesanais, entre outros. Escrever só sobre indígenas cobre uma parte do recorte."
+  },
+  {
+    ano: 2021,
+    titulo: "Invisibilidade e registro civil: garantia de acesso à cidadania no Brasil",
+    elementos: ["Invisibilidade", "Registro civil", "Acesso à cidadania", "Brasil"],
+    nota: "O eixo é documental. Falar de exclusão social em geral, sem passar pelo registro civil como porta de entrada da cidadania, tangencia o tema."
+  },
+  {
+    ano: 2020,
+    titulo: "O estigma associado às doenças mentais na sociedade brasileira",
+    elementos: ["Estigma", "Doenças mentais", "Sociedade brasileira"],
+    nota: "O foco é o <em>estigma</em>, não a doença. Um texto sobre saúde mental, sintomas ou acesso a tratamento, sem tratar de como a sociedade marca e afasta essas pessoas, sai do recorte."
+  },
+  {
+    ano: 2019,
+    titulo: "Democratização do acesso ao cinema no Brasil",
+    elementos: ["Democratização", "Acesso ao cinema", "Brasil"],
+    nota: "Tema de acesso, não de crítica cinematográfica. Discutir a qualidade dos filmes brasileiros ou a indústria audiovisual sem tratar de quem consegue ou não chegar à sala de cinema é outro assunto."
+  },
+  {
+    ano: 2018,
+    titulo: "Manipulação do comportamento do usuário pelo controle de dados na internet",
+    elementos: ["Manipulação do comportamento", "Controle de dados", "Internet"],
+    nota: "Exigia a cadeia inteira: dados coletados → controle → manipulação do comportamento. Falar de privacidade ou de fake news isoladamente cobre só um elo."
+  },
+  {
+    ano: 2017,
+    titulo: "Desafios para a formação educacional de surdos no Brasil",
+    elementos: ["Desafios", "Formação educacional", "Surdos", "Brasil"],
+    nota: "O recorte é educacional. Textos sobre inclusão de pessoas com deficiência em geral, ou sobre acessibilidade fora da escola, tangenciam."
+  },
+  {
+    ano: 2016,
+    titulo: "Caminhos para combater a intolerância religiosa no Brasil",
+    elementos: ["Caminhos para combater", "Intolerância religiosa", "Brasil"],
+    nota: "A frase pede <em>caminhos</em> — o texto já nasce voltado à intervenção. Descrever a intolerância sem apontar como enfrentá-la deixa metade do recorte de fora."
+  },
+  {
+    ano: 2015,
+    titulo: "A persistência da violência contra a mulher na sociedade brasileira",
+    elementos: ["Persistência", "Violência contra a mulher", "Sociedade brasileira"],
+    nota: "A palavra-chave é <em>persistência</em>: por que continua, apesar das leis. Um texto que só descreve os tipos de violência não responde ao que foi perguntado."
+  },
+];
+
+// ---------- MONTAGEM DO SELETOR ----------
+
+(function montarSeletor(){
+  const sel = $("seletorTema");
+  TEMAS.forEach((t,i)=>{
+    const o = document.createElement("option");
+    o.value = String(i);
+    o.textContent = `${t.ano} — ${t.titulo}`;
+    sel.appendChild(o);
+  });
+
+  sel.addEventListener("change", ()=>{
+    const i = sel.value;
+    if(i === ""){ $("recorte").classList.add("oculto"); return; }
+    const t = TEMAS[Number(i)];
+    $("tema").value = t.titulo;
+
+    $("recorte").innerHTML = `
+      <div class="rotulo">O que a banca exigia · ENEM ${t.ano}</div>
+      <ul class="elementos">
+        ${t.elementos.map(e=>`<li>${esc(e)}</li>`).join("")}
+      </ul>
+      <p class="nota-recorte">${t.nota}</p>
+      <p class="nota-recorte aviso">Cobrir só parte desses elementos é tangenciamento — e trava C2, C3 e C5 em 40 pontos cada.</p>
+    `;
+    $("recorte").classList.remove("oculto");
+  });
+})();
 
 $("texto").addEventListener("input", () => {
   const n = $("texto").value.length;
@@ -759,6 +948,17 @@ function copiaRelevante(txt){
   return !/nenhuma\s+c[óo]pia/i.test(txt);
 }
 
+// Alerta de anulação — só aparece quando há risco real.
+function alertaRisco(c){
+  const r = (c.risco || "nenhum").toLowerCase();
+  if(r === "nenhum" || !c.riscoDetalhe) return "";
+  const grave = r === "anulacao" || r === "anulação";
+  return `<div class="risco ${grave ? "grave" : ""}">
+    <div class="rotulo">${grave ? "Risco de nota zero" : "Ponto de atenção"}</div>
+    <p>${esc(c.riscoDetalhe)}</p>
+  </div>`;
+}
+
 function renderDiagnostico(c){
   estado.competenciaFoco = c.competenciaFoco;
   estado.faixaInicial = c.faixaGlobal;
@@ -782,10 +982,12 @@ function renderDiagnostico(c){
     <h2>Diagnóstico</h2>
     <p class="legenda">Rodada 1 de ${TOTAL_RODADAS} · ${esc(c.temaDetectado || estado.tema || "tema livre")}</p>
 
+    ${alertaRisco(c)}
+
     <div class="faixa-global">
       <div class="rotulo">Faixa estimada</div>
       <div class="valor">${esc(c.faixaGlobal)}</div>
-      <p class="obs">Intervalo, não nota. A correção oficial tem quatro avaliadores humanos e critérios próprios.</p>
+      <p class="obs">Intervalo, não nota. A correção oficial tem no mínimo dois avaliadores humanos, com terceira avaliação em caso de discrepância.</p>
     </div>
 
     ${comps}
@@ -794,6 +996,18 @@ function renderDiagnostico(c){
       <h3>O que já está sustentado</h3>
       <p>${esc(c.pontoForte)}</p>
     </div>
+
+    ${c.repertorio ? `
+    <div class="bloco">
+      <h3>Repertório sociocultural</h3>
+      <p>${esc(c.repertorio)}</p>
+    </div>` : ""}
+
+    ${c.propostaIntervencao ? `
+    <div class="bloco">
+      <h3>Proposta de intervenção — os cinco elementos</h3>
+      <p>${esc(c.propostaIntervencao)}</p>
+    </div>` : ""}
 
     ${c.aderenciaRecorte ? `
     <div class="bloco">
@@ -915,6 +1129,7 @@ function voltarParaEscrita(){
   $("btnEnviar").textContent = "Enviar reescrita";
   $("tema").parentElement.classList.add("oculto");
   $("dobraMotivadores").classList.add("oculto");
+  $("recorte").classList.add("oculto");
   $("texto").focus();
   $("etapaEscrita").scrollIntoView({behavior:"smooth",block:"start"});
 }
