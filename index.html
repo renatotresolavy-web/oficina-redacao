@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Oficina de Reescrita — Redação ENEM | Aprimora Editorial</title>
+<meta name="theme-color" content="#f4ecdd">
+<title>Oficina de Reescrita — Redação ENEM | Aprimora IA</title>
 <meta name="description" content="Não corrige sua redação: devolve comandos de reescrita. Três rodadas, gratuito, sem cadastro.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,15 +13,22 @@
 
 <style>
 :root{
-  --tinta:#14171c;
-  --papel:#faf8f4;
-  --pauta:#e2ddd2;
-  --marca:#1d4e4a;
-  --marca-clara:#e8f0ee;
-  --grifo:#e8703a;
-  --grifo-fraco:#fbe9e0;
-  --cinza:#6b6f76;
-  --cinza-claro:#9aa0a8;
+  /* paleta extraída do logo Aprimora IA */
+  --petroleo:#112d30;
+  --roxo:#4d2f55;
+
+  --tinta:#112d30;
+  --papel:#f4ecdd;
+  --papel-alto:#fbf7f0;
+  --pauta:#ddd0b8;
+  --marca:#112d30;
+  --marca-clara:#e3ddcb;
+  --grifo:#4d2f55;
+  --grifo-fraco:#ece2ea;
+
+  /* contrastes verificados sobre o creme: 8.59 e 5.29 — ambos passam em AA */
+  --cinza:#4a4038;
+  --cinza-claro:#6b5f52;
 
   --display:"Bricolage Grotesque",system-ui,sans-serif;
   --corpo:"Newsreader",Georgia,serif;
@@ -35,8 +43,8 @@ body{
   background:var(--papel);
   color:var(--tinta);
   font-family:var(--corpo);
-  font-size:1.05rem;
-  line-height:1.6;
+  font-size:1.22rem;
+  line-height:1.62;
   -webkit-font-smoothing:antialiased;
 }
 
@@ -46,27 +54,38 @@ body{
 
 header{
   border-bottom:1px solid var(--pauta);
-  padding:1.1rem 0;
+  padding:1rem 0;
   position:sticky;top:0;
-  background:rgba(250,248,244,.93);
+  background:rgba(244,236,221,.94);
   backdrop-filter:blur(10px);
   z-index:50;
 }
 .topo{display:flex;justify-content:space-between;align-items:center;gap:1rem}
 .marca{
+  display:inline-flex;align-items:baseline;gap:.42rem;
+  text-decoration:none;
+}
+.marca .nome{
   font-family:var(--display);
   font-weight:800;
-  font-size:.82rem;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  color:var(--marca);
-  text-decoration:none;
+  font-size:1.42rem;
+  letter-spacing:-.03em;
+  color:var(--petroleo);
+  line-height:1;
+}
+.marca .ia{
+  font-family:var(--display);
+  font-weight:800;
+  font-size:.78rem;
+  letter-spacing:.2em;
+  color:var(--roxo);
+  line-height:1;
 }
 .contador{
   font-family:var(--mono);
-  font-size:.7rem;
-  color:var(--cinza-claro);
-  letter-spacing:.06em;
+  font-size:.76rem;
+  color:var(--cinza);
+  letter-spacing:.05em;
 }
 
 /* ---------- ABERTURA ---------- */
@@ -76,10 +95,11 @@ header{
 .tese{
   font-family:var(--display);
   font-weight:800;
-  font-size:clamp(2.1rem,6.5vw,3.7rem);
+  font-size:clamp(2.3rem,6.8vw,4rem);
   line-height:1.02;
   letter-spacing:-.035em;
-  margin-bottom:1.6rem;
+  margin-bottom:1.7rem;
+  color:var(--petroleo);
 }
 .tese .riscado{
   position:relative;
@@ -88,23 +108,24 @@ header{
 }
 .tese .riscado::after{
   content:"";position:absolute;left:-.02em;right:-.02em;top:52%;
-  height:.075em;background:var(--grifo);
+  height:.075em;background:var(--roxo);
   transform:scaleX(0);transform-origin:left;
   animation:risca .55s .5s cubic-bezier(.65,0,.35,1) forwards;
 }
 @keyframes risca{to{transform:scaleX(1)}}
 .tese .troca{
-  color:var(--marca);
+  color:var(--roxo);
   opacity:0;
   animation:surge .5s 1.05s ease forwards;
 }
 @keyframes surge{from{opacity:0;transform:translateY(.12em)}to{opacity:1;transform:none}}
 
 .subtese{
-  font-size:1.16rem;
+  font-size:1.32rem;
+  line-height:1.55;
   color:var(--cinza);
-  max-width:56ch;
-  margin-bottom:2.4rem;
+  max-width:54ch;
+  margin-bottom:2.6rem;
 }
 .subtese strong{color:var(--tinta);font-weight:500}
 
@@ -115,20 +136,27 @@ header{
   border-top:1px solid var(--pauta);
   border-bottom:1px solid var(--pauta);
 }
-.regra{padding:1.3rem 1.4rem 1.3rem 0}
-.regra + .regra{border-left:1px solid var(--pauta);padding-left:1.4rem}
+.regra{padding:1.3rem 1.4rem;border-left:1px solid var(--pauta)}
+.regra:first-child{border-left:0;padding-left:0}
+
+@media(min-width:641px) and (max-width:1000px){
+  .regras{grid-template-columns:1fr 1fr}
+  .regra:nth-child(odd){border-left:0;padding-left:0}
+  .regra:nth-child(n+3){border-top:1px solid var(--pauta)}
+}
 .regra dt{
   font-family:var(--mono);
-  font-size:.66rem;
+  font-size:.75rem;
   letter-spacing:.13em;
   text-transform:uppercase;
   color:var(--grifo);
   margin-bottom:.45rem;
 }
-.regra dd{font-size:.96rem;line-height:1.45;color:var(--cinza)}
+.regra dd{font-size:1.12rem;line-height:1.5;color:var(--cinza)}
 
 @media(max-width:640px){
-  .regra + .regra{border-left:0;border-top:1px solid var(--pauta);padding-left:0}
+  .regra{border-left:0;padding-left:0;padding-right:0}
+  .regra + .regra{border-top:1px solid var(--pauta)}
 }
 
 /* ---------- TRILHA ---------- */
@@ -137,15 +165,15 @@ header{
   display:flex;align-items:center;gap:.55rem;
   padding:1.6rem 0;
   font-family:var(--mono);
-  font-size:.68rem;
+  font-size:.77rem;
   letter-spacing:.09em;
   text-transform:uppercase;
-  color:var(--cinza-claro);
+  color:var(--cinza);
   flex-wrap:wrap;
 }
 .passo{display:flex;align-items:center;gap:.4rem}
 .bolinha{
-  width:.55rem;height:.55rem;border-radius:50%;
+  width:.62rem;height:.62rem;border-radius:50%;
   border:1.5px solid var(--pauta);
   flex-shrink:0;
 }
@@ -162,7 +190,7 @@ section{padding-bottom:3.5rem}
 label{
   display:block;
   font-family:var(--mono);
-  font-size:.68rem;
+  font-size:.77rem;
   letter-spacing:.12em;
   text-transform:uppercase;
   color:var(--cinza);
@@ -172,61 +200,97 @@ label{
 input[type=text],textarea{
   width:100%;
   font-family:var(--corpo);
-  font-size:1.02rem;
-  line-height:1.65;
+  font-size:1.18rem;
+  line-height:1.62;
   color:var(--tinta);
-  background:#fff;
-  border:1px solid var(--pauta);
+  background:var(--papel-alto);
+  border:1.5px solid var(--pauta);
   border-radius:2px;
   padding:.85rem 1rem;
   transition:border-color .15s;
 }
 input[type=text]:focus,textarea:focus{
   outline:none;
-  border-color:var(--marca);
-  box-shadow:0 0 0 3px var(--marca-clara);
+  border-color:var(--roxo);
+  box-shadow:0 0 0 3px var(--grifo-fraco);
 }
 textarea{
-  min-height:19rem;
+  min-height:21rem;
   resize:vertical;
-  background-image:repeating-linear-gradient(transparent,transparent 1.673rem,var(--pauta) 1.673rem,var(--pauta) calc(1.673rem + 1px));
+  background-image:repeating-linear-gradient(transparent,transparent 1.912rem,var(--pauta) 1.912rem,var(--pauta) calc(1.912rem + 1px));
   background-attachment:local;
 }
 .campo{margin-bottom:1.5rem}
 
 .rodape-campo{
   display:flex;justify-content:space-between;align-items:baseline;
-  margin-top:.45rem;
+  margin-top:.5rem;
   font-family:var(--mono);
-  font-size:.68rem;
-  color:var(--cinza-claro);
+  font-size:.82rem;
+  color:var(--cinza);
 }
 .rodape-campo .alerta{color:var(--grifo)}
+
+/* campo opcional colapsável */
+.dobra{
+  border:1.5px solid var(--pauta);
+  border-radius:2px;
+  background:var(--papel-alto);
+  margin-bottom:1.5rem;
+}
+.dobra summary{
+  list-style:none;cursor:pointer;
+  padding:.8rem 1rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+}
+.dobra summary::-webkit-details-marker{display:none}
+.dobra summary:focus-visible{outline:2px solid var(--grifo);outline-offset:-2px}
+.dobra .rotulo-dobra{
+  font-family:var(--mono);font-size:.77rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--cinza);
+}
+.dobra .opcional{
+  font-family:var(--corpo);font-style:italic;font-size:1rem;
+  color:var(--cinza);text-transform:none;letter-spacing:0;
+  margin-left:.5rem;
+}
+.dobra .sinal{
+  font-family:var(--mono);font-size:1rem;color:var(--marca);
+  transition:transform .2s;flex-shrink:0;
+}
+.dobra[open] .sinal{transform:rotate(45deg)}
+.dobra .miolo{padding:0 1rem 1rem}
+.dobra .miolo p{
+  font-size:1.05rem;color:var(--cinza);margin-bottom:.7rem;line-height:1.5;
+}
+.dobra textarea{
+  min-height:10rem;background-image:none;font-size:1.1rem;
+}
 
 button{
   font-family:var(--display);
   font-weight:600;
-  font-size:.95rem;
+  font-size:1.08rem;
   letter-spacing:.01em;
   color:#fff;
   background:var(--marca);
   border:none;
   border-radius:2px;
-  padding:.9rem 1.9rem;
+  padding:1rem 2.1rem;
   cursor:pointer;
   transition:background .15s,transform .06s;
 }
-button:hover:not(:disabled){background:#164240}
+button:hover:not(:disabled){background:#1c4449}
 button:active:not(:disabled){transform:translateY(1px)}
-button:disabled{background:var(--cinza-claro);cursor:not-allowed}
-button:focus-visible{outline:2px solid var(--grifo);outline-offset:3px}
+button:disabled{background:#8a7f70;cursor:not-allowed}
+button:focus-visible{outline:3px solid var(--roxo);outline-offset:3px}
 
 .secundario{
   background:none;color:var(--marca);
   border:1px solid var(--pauta);
-  padding:.75rem 1.4rem;font-size:.88rem;
+  padding:.8rem 1.5rem;font-size:1rem;
 }
-.secundario:hover:not(:disabled){background:var(--marca-clara)}
+.secundario:hover:not(:disabled){background:var(--marca-clara);border-color:var(--marca)}
 
 /* ---------- RESULTADO ---------- */
 
@@ -234,7 +298,7 @@ button:focus-visible{outline:2px solid var(--grifo);outline-offset:3px}
 
 .carregando{
   padding:3.5rem 0;text-align:center;
-  font-family:var(--mono);font-size:.75rem;
+  font-family:var(--mono);font-size:.88rem;
   letter-spacing:.1em;text-transform:uppercase;color:var(--cinza);
 }
 .pontinhos::after{
@@ -245,32 +309,32 @@ button:focus-visible{outline:2px solid var(--grifo);outline-offset:3px}
 h2{
   font-family:var(--display);
   font-weight:800;
-  font-size:1.75rem;
-  letter-spacing:-.022em;
+  font-size:2.1rem;
+  letter-spacing:-.028em;
   margin-bottom:.4rem;
 }
 .legenda{
-  font-family:var(--mono);font-size:.68rem;letter-spacing:.11em;
-  text-transform:uppercase;color:var(--cinza-claro);margin-bottom:1.6rem;
+  font-family:var(--mono);font-size:.77rem;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--cinza);margin-bottom:1.7rem;
 }
 
 .faixa-global{
   border:1px solid var(--pauta);
-  border-left:3px solid var(--marca);
-  padding:1.2rem 1.4rem;
-  margin-bottom:2rem;
-  background:#fff;
+  border-left:4px solid var(--roxo);
+  padding:1.4rem 1.5rem;
+  margin-bottom:2.2rem;
+  background:var(--papel-alto);
 }
 .faixa-global .rotulo{
-  font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.12em;
   text-transform:uppercase;color:var(--cinza);
 }
 .faixa-global .valor{
   font-family:var(--display);font-weight:800;
-  font-size:2.3rem;letter-spacing:-.03em;color:var(--marca);
+  font-size:2.9rem;letter-spacing:-.03em;color:var(--marca);
   line-height:1.15;
 }
-.faixa-global .obs{font-size:.92rem;color:var(--cinza);margin-top:.3rem}
+.faixa-global .obs{font-size:1.05rem;color:var(--cinza);margin-top:.3rem}
 
 .comp{
   border-top:1px solid var(--pauta);
@@ -280,59 +344,59 @@ h2{
   display:flex;justify-content:space-between;align-items:baseline;
   gap:1rem;margin-bottom:.55rem;
 }
-.comp-nome{font-family:var(--display);font-weight:600;font-size:1.02rem}
-.comp-nome .cod{color:var(--grifo);font-family:var(--mono);font-size:.78rem;margin-right:.45rem}
+.comp-nome{font-family:var(--display);font-weight:600;font-size:1.2rem}
+.comp-nome .cod{color:var(--roxo);font-family:var(--mono);font-size:.88rem;margin-right:.45rem}
 .comp-faixa{
-  font-family:var(--mono);font-size:.82rem;font-weight:600;
+  font-family:var(--mono);font-size:.95rem;font-weight:700;
   color:var(--marca);white-space:nowrap;
 }
 .barra{
-  height:3px;background:var(--pauta);margin-bottom:.7rem;position:relative;
+  height:5px;background:var(--pauta);margin-bottom:.8rem;position:relative;
 }
 .barra i{
-  position:absolute;left:0;top:0;height:100%;background:var(--marca);
+  position:absolute;left:0;top:0;height:100%;background:var(--roxo);
   width:0;transition:width .7s cubic-bezier(.2,.7,.3,1);
 }
-.comp p{font-size:.98rem;color:#3a3f47}
+.comp p{font-size:1.14rem;color:var(--tinta)}
 .evid{
   font-family:var(--corpo);font-style:italic;
-  border-left:2px solid var(--grifo);
-  padding-left:.8rem;margin-top:.6rem;
-  color:var(--cinza);font-size:.94rem;
+  border-left:3px solid var(--roxo);
+  padding-left:.9rem;margin-top:.6rem;
+  color:var(--cinza);font-size:1.08rem;
 }
 
 .comando{
   background:var(--grifo-fraco);
-  border:1px solid #f2cdb8;
+  border:1.5px solid #cbb6c8;
   border-radius:2px;
   padding:1.4rem 1.5rem;
   margin:2.2rem 0 1.4rem;
 }
 .comando .rotulo{
-  font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.12em;
   text-transform:uppercase;color:var(--grifo);margin-bottom:.6rem;
 }
 .comando .alvo{
-  font-family:var(--display);font-weight:600;font-size:1.05rem;margin-bottom:.5rem;
+  font-family:var(--display);font-weight:700;font-size:1.25rem;margin-bottom:.55rem;
 }
-.comando p{font-size:1rem;line-height:1.55}
+.comando p{font-size:1.18rem;line-height:1.55}
 
 .delta{
   display:inline-flex;align-items:center;gap:.4rem;
-  font-family:var(--mono);font-size:.75rem;font-weight:600;
+  font-family:var(--mono);font-size:.84rem;font-weight:600;
   padding:.28rem .6rem;border-radius:2px;margin-bottom:1rem;
 }
 .delta.subiu{background:var(--marca-clara);color:var(--marca)}
-.delta.mantev{background:#f0eee9;color:var(--cinza)}
-.delta.caiu{background:var(--grifo-fraco);color:#b8481c}
+.delta.mantev{background:#e8e0d0;color:var(--cinza)}
+.delta.caiu{background:#f0e2de;color:#8c3a1c}
 
 .bloco{margin-bottom:1.2rem}
 .bloco h3{
-  font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.12em;
   text-transform:uppercase;color:var(--cinza);
   font-weight:400;margin-bottom:.35rem;
 }
-.bloco p{font-size:.99rem}
+.bloco p{font-size:1.14rem}
 
 /* ---------- HISTÓRICO ---------- */
 
@@ -340,36 +404,36 @@ h2{
   border-top:1px solid var(--pauta);
   margin-top:3rem;padding-top:1.8rem;
 }
-.historico h2{font-size:1.3rem;margin-bottom:1.2rem}
+.historico h2{font-size:1.6rem;margin-bottom:1.2rem}
 .sessao{
-  border:1px solid var(--pauta);background:#fff;
+  border:1px solid var(--pauta);background:var(--papel-alto);
   padding:.9rem 1.1rem;margin-bottom:.6rem;
   display:flex;justify-content:space-between;align-items:center;gap:1rem;
   flex-wrap:wrap;
 }
 .sessao .quando{
-  font-family:var(--mono);font-size:.68rem;color:var(--cinza-claro);
+  font-family:var(--mono);font-size:.82rem;color:var(--cinza);
   letter-spacing:.06em;
 }
-.sessao .tema-hist{font-size:.96rem;font-weight:500;flex:1;min-width:12rem}
+.sessao .tema-hist{font-size:1.1rem;font-weight:500;flex:1;min-width:12rem}
 .sessao .faixa-hist{font-family:var(--mono);font-size:.8rem;color:var(--marca);font-weight:600}
 
 .padrao{
   background:var(--marca-clara);
-  border-left:3px solid var(--marca);
+  border-left:4px solid var(--petroleo);
   padding:1.1rem 1.3rem;margin-bottom:1.2rem;
 }
 .padrao .rotulo{
-  font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.12em;
   text-transform:uppercase;color:var(--marca);margin-bottom:.5rem;
 }
-.padrao p{font-size:.98rem}
-.padrao ul{margin:.5rem 0 0 1.1rem;font-size:.96rem}
+.padrao p{font-size:1.12rem}
+.padrao ul{margin:.5rem 0 0 1.1rem;font-size:1.1rem}
 .padrao li{margin-bottom:.25rem}
 
 .erro{
-  border:1px solid #f2cdb8;background:var(--grifo-fraco);
-  padding:1rem 1.2rem;margin-bottom:1.2rem;font-size:.98rem;
+  border:1.5px solid #cbb6c8;background:var(--grifo-fraco);
+  padding:1.1rem 1.3rem;margin-bottom:1.2rem;font-size:1.12rem;
 }
 
 /* ---------- RODAPÉ ---------- */
@@ -377,16 +441,23 @@ h2{
 footer{
   border-top:1px solid var(--pauta);
   padding:2.5rem 0 3.5rem;margin-top:4rem;
-  font-size:.9rem;color:var(--cinza);
+  font-size:1.05rem;color:var(--cinza);
 }
-footer a{color:var(--marca);text-decoration:none;border-bottom:1px solid var(--pauta)}
-footer a:hover{border-color:var(--marca)}
+footer a{color:var(--roxo);text-decoration:none;border-bottom:1.5px solid #cbb6c8;font-weight:500}
+footer a:hover{border-color:var(--roxo)}
 footer .assinatura{
-  font-family:var(--display);font-weight:800;font-size:.8rem;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--marca);
-  margin-bottom:.5rem;display:block;
+  display:inline-flex;align-items:baseline;gap:.42rem;
+  margin-bottom:.7rem;
 }
-footer .miudo{font-size:.8rem;color:var(--cinza-claro);margin-top:1rem;line-height:1.5}
+footer .nome-rodape{
+  font-family:var(--display);font-weight:800;font-size:1.55rem;
+  letter-spacing:-.03em;color:var(--petroleo);line-height:1;
+}
+footer .ia-rodape{
+  font-family:var(--display);font-weight:800;font-size:.85rem;
+  letter-spacing:.2em;color:var(--roxo);line-height:1;
+}
+footer .miudo{font-size:.95rem;color:var(--cinza);margin-top:1rem;line-height:1.5}
 
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
@@ -399,7 +470,7 @@ footer .miudo{font-size:.8rem;color:var(--cinza-claro);margin-top:1rem;line-heig
 
 <header>
   <div class="wrap topo">
-    <a class="marca" href="#">Aprimora Editorial</a>
+    <a class="marca" href="#"><span class="nome">aprimora</span><span class="ia">IA</span></a>
     <span class="contador" id="contador"></span>
   </div>
 </header>
@@ -429,6 +500,10 @@ footer .miudo{font-size:.8rem;color:var(--cinza-claro);margin-top:1rem;line-heig
         <dd>Nenhum parágrafo é reescrito para você. A operação é sua; a ferramenta só diz qual é.</dd>
       </div>
       <div class="regra">
+        <dt>Proposta inteira, se tiver</dt>
+        <dd>Colando os textos motivadores, o diagnóstico checa se você respeitou o recorte e se copiou trecho da proposta.</dd>
+      </div>
+      <div class="regra">
         <dt>Sem cadastro</dt>
         <dd>Nada de e-mail, nada de senha. Seu histórico fica salvo só neste navegador.</dd>
       </div>
@@ -447,6 +522,26 @@ footer .miudo{font-size:.8rem;color:var(--cinza-claro);margin-top:1rem;line-heig
       <label for="tema">Tema da proposta</label>
       <input type="text" id="tema" placeholder="Ex.: Desafios para a valorização do trabalho de cuidado no Brasil" maxlength="200">
     </div>
+
+    <details class="dobra" id="dobraMotivadores">
+      <summary>
+        <span class="rotulo-dobra">Textos motivadores<span class="opcional">opcional, mas melhora o diagnóstico</span></span>
+        <span class="sinal">+</span>
+      </summary>
+      <div class="miolo">
+        <p>
+          Cole aqui os textos que vieram junto com a proposta. Com eles, o diagnóstico
+          verifica se você respeitou o recorte do tema e se copiou trecho de motivador —
+          duas coisas que a correção oficial cobra e que sem a proposta completa ficam no escuro.
+          Nenhum repertório dos motivadores será sugerido a você: a leitura é sua.
+        </p>
+        <textarea id="motivadores" placeholder="Texto I, Texto II, Texto III… Pode colar tudo junto." spellcheck="false"></textarea>
+        <div class="rodape-campo">
+          <span id="contaMotiv">0 caracteres</span>
+          <span>Limite de 6.000</span>
+        </div>
+      </div>
+    </details>
 
     <div class="campo">
       <label for="texto" id="labelTexto">Sua redação</label>
@@ -475,10 +570,11 @@ footer .miudo{font-size:.8rem;color:var(--cinza-claro);margin-top:1rem;line-heig
 
 <footer>
   <div class="wrap">
-    <span class="assinatura">Aprimora Editorial</span>
+    <span class="assinatura"><span class="nome-rodape">aprimora</span><span class="ia-rodape">IA</span></span>
     <p>
-      Produção editorial e consultoria estratégica em materiais didáticos, com metodologia
-      de trabalho integrada à IA. <a href="https://www.linkedin.com/company/aprimora-editorial" target="_blank" rel="noopener">Conheça o trabalho</a>.
+      Divisão de inteligência artificial da Aprimora Editorial. Produção editorial e consultoria
+      estratégica em materiais didáticos, com metodologia de trabalho integrada à IA.
+      <a href="https://www.linkedin.com/company/aprimora-editorial" target="_blank" rel="noopener">Conheça o trabalho</a>.
     </p>
     <p class="miudo">
       Ferramenta gratuita, de uso livre para estudantes. A faixa estimada é referência de estudo,
@@ -494,6 +590,7 @@ footer .miudo{font-size:.8rem;color:var(--cinza-claro);margin-top:1rem;line-heig
 // ============================================================
 const ENDPOINT = "https://oficina-redacao.renato-tresolavy.workers.dev";
 const MAX_CHAR = 4000;
+const MAX_MOTIV = 6000;
 const TOTAL_RODADAS = 3;
 
 // ============================================================
@@ -503,6 +600,7 @@ const $ = (id) => document.getElementById(id);
 const estado = {
   rodada: 0,          // 0 = ainda não enviou; 1 = diagnóstico; 2 e 3 = reescritas
   tema: "",
+  motivadores: "",
   competenciaFoco: null,
   diagnosticoFoco: "",
   faixaInicial: null,
@@ -545,6 +643,12 @@ $("texto").addEventListener("input", () => {
   const n = $("texto").value.length;
   $("contaChar").textContent = n.toLocaleString("pt-BR") + " caracteres";
   $("contaChar").className = n > MAX_CHAR ? "alerta" : "";
+});
+
+$("motivadores").addEventListener("input", () => {
+  const n = $("motivadores").value.length;
+  $("contaMotiv").textContent = n.toLocaleString("pt-BR") + " caracteres";
+  $("contaMotiv").className = n > MAX_MOTIV ? "alerta" : "";
 });
 
 // ---------- CHAMADA ----------
@@ -597,7 +701,13 @@ async function enviar(){
   const primeira = estado.rodada === 0;
 
   if(primeira){
+    const motiv = $("motivadores").value.trim();
+    if(motiv.length > MAX_MOTIV){
+      mostrarErro(`Os textos motivadores passam de ${MAX_MOTIV.toLocaleString("pt-BR")} caracteres. Cole só os trechos, sem as fontes e legendas.`);
+      return;
+    }
     estado.tema = tema;
+    estado.motivadores = motiv;
     estado.sessaoId = Date.now();
   }
 
@@ -608,8 +718,10 @@ async function enviar(){
 
   try{
     const payload = primeira
-      ? { etapa:"diagnostico", tema: estado.tema, texto }
+      ? { etapa:"diagnostico", tema: estado.tema, texto,
+          motivadores: estado.motivadores }
       : { etapa:"reescrita", tema: estado.tema, texto,
+          motivadores: estado.motivadores,
           competenciaFoco: estado.competenciaFoco,
           diagnosticoAnterior: estado.diagnosticoFoco };
 
@@ -639,6 +751,12 @@ function larguraBarra(faixa){
 
 function esc(s){
   return String(s ?? "").replace(/[&<>"]/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+}
+
+// Só mostra o bloco de cópia quando houver algo a mostrar.
+function copiaRelevante(txt){
+  if(!txt) return false;
+  return !/nenhuma\s+c[óo]pia/i.test(txt);
 }
 
 function renderDiagnostico(c){
@@ -677,10 +795,22 @@ function renderDiagnostico(c){
       <p>${esc(c.pontoForte)}</p>
     </div>
 
+    ${c.aderenciaRecorte ? `
+    <div class="bloco">
+      <h3>Aderência ao recorte da proposta</h3>
+      <p>${esc(c.aderenciaRecorte)}</p>
+    </div>` : ""}
+
+    ${copiaRelevante(c.copiaMotivadores) ? `
+    <div class="bloco">
+      <h3>Cópia dos textos motivadores</h3>
+      <p>${esc(c.copiaMotivadores)}</p>
+    </div>` : ""}
+
     <div class="comando">
       <div class="rotulo">Comando de reescrita · rodada 2</div>
       <div class="alvo">Trabalhe a ${esc(c.competenciaFoco)}</div>
-      <p style="margin-bottom:.8rem;color:var(--cinza);font-size:.94rem">${esc(c.razaoDoFoco)}</p>
+      <p style="margin-bottom:.8rem;color:var(--cinza);font-size:1.08rem">${esc(c.razaoDoFoco)}</p>
       <p>${esc(c.comandoReescrita)}</p>
     </div>
 
@@ -728,7 +858,7 @@ function renderReescrita(c){
         <div class="rotulo">Fim da sessão</div>
         <div class="alvo">Próximo passo: ${esc(c.proximaCompetencia)}</div>
         <p>${esc(c.comandoReescrita)}</p>
-        <p style="margin-top:.9rem;color:var(--cinza);font-size:.94rem">
+        <p style="margin-top:.9rem;color:var(--cinza);font-size:1.08rem">
           Três rodadas é o limite de uma sessão. Reescreva por conta própria com esse comando
           e volte com uma redação nova quando quiser — seu histórico continua aqui.
         </p>
@@ -784,6 +914,7 @@ function voltarParaEscrita(){
   $("labelTexto").textContent = "Sua redação reescrita";
   $("btnEnviar").textContent = "Enviar reescrita";
   $("tema").parentElement.classList.add("oculto");
+  $("dobraMotivadores").classList.add("oculto");
   $("texto").focus();
   $("etapaEscrita").scrollIntoView({behavior:"smooth",block:"start"});
 }
